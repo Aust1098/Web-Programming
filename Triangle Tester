@@ -1,0 +1,175 @@
+function validate(){
+	var f_value = $("#first_side").value;
+
+	var s_value = $("#second_side").value;
+
+	var t_value = $("#third_side").value;
+
+
+	var buttons = $("#buttons");
+	while (buttons[0].hasChildNodes()) {
+    	buttons[0].removeChild(buttons.lastChild);
+	}
+
+	var btn1 = document.createElement("BUTTON");        
+	var t = document.createTextNode("(1)Test to see if it is a triangle");       
+	btn1.appendChild(t);                                
+	buttons[0].appendChild(btn1);  
+
+	var btn2 = document.createElement("BUTTON");        
+	var t2 = document.createTextNode("(2) Test to see if it is a right triangle");       
+	btn2.appendChild(t2);                                
+	buttons[0].appendChild(btn2);
+
+	var btn3 = document.createElement("BUTTON");        
+	var t3 = document.createTextNode("(3)Test 1 and 2");       
+	btn3.appendChild(t3);                                
+	buttons[0].appendChild(btn3);
+
+	var btn4 = document.createElement("BUTTON");        
+	var t4 = document.createTextNode("(4)Clear Results");       
+	btn4.appendChild(t4);                                
+	buttons[0].appendChild(btn4); 
+
+
+	if (btn1.addEventListener) {  // all browsers except IE before version 9
+  btn1.addEventListener("click", test1, false);
+} else {
+  if (btn1.attachEvent) {   // IE before version 9
+    btn1.attachEvent("click", test1);
+  }
+} 
+
+if (btn2.addEventListener) {  // all browsers except IE before version 9
+  btn2.addEventListener("click", test2, false);
+} else {
+  if (btn2.attachEvent) {   // IE before version 9
+    btn2.attachEvent("click", test2);
+  }
+} 
+
+if (btn3.addEventListener) {  // all browsers except IE before version 9
+  btn3.addEventListener("click", test12, false);
+} else {
+  if (btn3.attachEvent) {   // IE before version 9
+    btn3.attachEvent("click", test12);
+  }
+} 
+
+if (btn4.addEventListener) {  // all browsers except IE before version 9
+  btn4.addEventListener("click", clearAll, false);
+} else {
+  if (btn4.attachEvent) {   // IE before version 9
+    btn4.attachEvent("click", clearAll);
+  }
+} 
+
+}
+
+function test1(){
+	var a = $("#first_side")[0].value;
+
+	if(a == null || a == ""){
+	}
+
+	var b = $("#second_side")[0].value;
+
+	if(b == null || b == ""){
+	}
+
+	var c = $("#third_side")[0].value;
+
+	if(c == null || c == ""){
+	}
+
+	a = parseInt(a);
+	b = parseInt(b);
+	c = parseInt(c);
+
+	if((a+b) > c){
+		if((a+c)>b){
+			if((b+c)>a){
+				setOutput("It is a triangle");
+				return true;
+			}
+		}
+	}
+	setOutput("It is not a triangle");
+	return false;
+}
+
+function test2(){
+	var a = $("#first_side")[0].value;
+
+	if(a == null || a == ""){
+	}
+
+	var b = $("#second_side")[0].value;
+
+	if(b == null || b == ""){
+	
+	}
+
+	var c = $("#third_side")[0].value;
+
+	if(c == null || c == ""){
+	}
+
+	if(test1()){
+		a = parseInt(a);
+		b = parseInt(b);
+		c = parseInt(c);
+		var largest = c;
+		var first = a;
+		var second = b;
+		if(c > a){
+			if(c > b){
+				largest = c;
+				first = a;
+				second = b;
+			}else{
+				largest = b;
+				first = a;
+				second = c;
+			}
+		}else if(a > b){
+			largest = a;
+			first = b;
+			second = c;
+		}else{
+			largest = b;
+			first = a;
+			second = c;
+		}
+
+		if(largest*largest == first*first + second*second){
+			setOutput("It is a right triangle");
+			return true;
+		}
+	}
+
+	setOutput("It is not a right triangle");
+	return false;
+}
+
+function test12(){
+	if(test1()){
+		if(test2()){
+			setOutput("It is a triangle and right angled");
+		}else{
+			setOutput("It is a triangle but not a right angled triangle");
+		}
+	}else{
+		setOutput("It is not triangle");
+	}
+}
+
+function setOutput(msg){
+	var output = $("#output")[0];
+	output.textContent = msg;
+}
+
+function clearAll(){
+	var output = $("#output")[0];
+	output.textContent = "";
+}
